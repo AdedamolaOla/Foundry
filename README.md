@@ -1,4 +1,4 @@
-# Design in a Box
+# Foundry
 
 Community-driven design resource library. Submit resources without an account; admins moderate before publishing.
 

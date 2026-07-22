@@ -4,7 +4,7 @@ import { isAdminUser } from "@/lib/admin";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Design in a Box",
+  title: "Foundry",
   description: "Community-driven design resource library",
 };
 

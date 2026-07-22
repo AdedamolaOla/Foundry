@@ -4,10 +4,10 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
       <h1 className="text-3xl font-bold text-neutral-900 dark:text-white">
-        About Design in a Box
+        About Foundry
       </h1>
       <p className="mt-6 text-neutral-600 dark:text-neutral-400">
-        Design in a Box is a community-driven design resource library. Anyone can
+        Foundry is a community-driven design resource library. Anyone can
         submit valuable design resources without creating an account. Submissions
         are moderated by our team and published once approved.
       </p>

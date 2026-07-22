@@ -1,4 +1,4 @@
-import "jsr:@supabase/functions-js/edge_runtime.d.ts";
+import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
 const MAX_URL_LENGTH = 2048;
 const TIMEOUT_MS = 5000;
@@ -19,7 +19,7 @@ async function fetchPreviewUrl(url: string): Promise<string | null> {
   try {
     const res = await fetch(url, {
       signal: controller.signal,
-      headers: { "User-Agent": "DesignInABoxPreview/1.0" },
+      headers: { "User-Agent": "FoundryPreview/1.0" },
       redirect: "follow",
     });
     const html = await res.text();
