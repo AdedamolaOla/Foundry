@@ -38,7 +38,7 @@ export function ResourceCard({ resource }: { resource: Contribution }) {
       href={resource.link}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex h-[280px] flex-col gap-4 overflow-hidden rounded-[24px] bg-[var(--card-background)] p-4 transition-colors lg:h-auto lg:rounded-[32px] lg:p-6 lg:hover:bg-[var(--border-default)]"
+      className="group relative flex h-[280px] flex-col gap-4 overflow-hidden rounded-[24px] bg-[var(--card-background)] p-4 transition-colors lg:h-auto lg:w-[295px] lg:flex-none lg:rounded-[32px] lg:p-6 lg:hover:bg-[var(--border-default)]"
     >
       <div className="relative w-full min-h-0 flex-1 overflow-hidden rounded-[8px] lg:h-[146px] lg:flex-none lg:shrink-0 lg:rounded-[16px]">
         {resource.preview_image_url ? (
