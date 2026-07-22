@@ -12,21 +12,22 @@ export default function AboutPage() {
             </h1>
             <div className="flex flex-col gap-4 text-xs leading-[1.4] text-[var(--foreground-muted)] md:text-sm">
               <p>
-                One common challenge in the design process is managing tight
-                project timelines, especially when collaborating with
-                stakeholders. These constraints often lead to cutting
-                corners — sometimes skipping important steps like user
-                research, product strategy, competitor analysis, etc. While
-                these steps are necessary for the success of a product, the
-                pressure to deliver quickly can leave gaps in the process.
+                Every week, new AI tools, design resources, frameworks,
+                articles, plugins, and workflows are released.
+                It&rsquo;s exciting, but it also means the things that could
+                make you a better designer quickly get buried. A tool you
+                discovered last month, a brilliant product teardown you meant
+                to revisit, or an AI workflow that saved you hours can easily
+                disappear into bookmarks, browser tabs, or forgotten notes.
               </p>
               <p>
-                To address this, I&rsquo;ve leaned on templates as a key
-                strategy. Templates allow me to jump right into the work
-                without reinventing the wheel for each project. For instance,
-                if I&rsquo;m conducting user interviews, having a pre-made
-                template for documenting feedback saves me time and ensures I
-                don&rsquo;t overlook anything important.
+                I built Foundry because I wanted one place to collect the
+                resources that actually matter. Instead of constantly
+                searching for that article, template, prompt, or tool again,
+                everything is organized and ready whenever I need it. Over
+                time, it became more than a personal library, it became a
+                curated knowledge base for product designers who want to
+                spend less time searching and more time designing.
               </p>
               <p>
                 Read the complete story{" "}
@@ -53,8 +54,15 @@ export default function AboutPage() {
                 me a coffee. ☕
               </p>
               <p>
-                💡 Got feedback or suggestions? Stay up to date with new
-                submissions on X and share your thoughts!
+                💡 Got feedback or suggestions? Send me an email on{" "}
+                <a
+                  href="mailto:Olaadedamola84@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--foreground)] underline"
+                >
+                  Olaadedamola84@gmail.com
+                </a>
               </p>
             </div>
           </div>
