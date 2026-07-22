@@ -38,9 +38,9 @@ export function ResourceCard({ resource }: { resource: Contribution }) {
       href={resource.link}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex h-[280px] flex-col gap-4 overflow-hidden rounded-[24px] bg-[var(--card-background)] p-4 transition-colors lg:h-auto lg:w-[295px] lg:flex-none lg:rounded-[32px] lg:p-6 lg:hover:bg-[var(--border-default)]"
+      className="group relative flex h-[280px] flex-col gap-4 overflow-hidden rounded-[24px] bg-[var(--card-background)] p-4 transition-colors sm:h-auto sm:w-[295px] sm:flex-none sm:rounded-[32px] sm:p-6 sm:hover:bg-[var(--border-default)]"
     >
-      <div className="relative w-full min-h-0 flex-1 overflow-hidden rounded-[8px] lg:h-[146px] lg:flex-none lg:shrink-0 lg:rounded-[16px]">
+      <div className="relative w-full min-h-0 flex-1 overflow-hidden rounded-[8px] sm:h-[146px] sm:flex-none sm:shrink-0 sm:rounded-[16px]">
         {resource.preview_image_url ? (
           <img
             src={resource.preview_image_url}
@@ -59,18 +59,18 @@ export function ResourceCard({ resource }: { resource: Contribution }) {
         </span>
       </div>
 
-      <div className="flex flex-col gap-2 lg:gap-[10px]">
-        <h3 className="line-clamp-2 text-[14px] font-semibold leading-[1.4] text-[var(--foreground)] lg:text-[18px] lg:leading-[1.6]">
+      <div className="flex flex-col gap-2 sm:gap-[10px]">
+        <h3 className="line-clamp-2 text-[14px] font-semibold leading-[1.4] text-[var(--foreground)] sm:text-[18px] sm:leading-[1.6]">
           {resource.title}
         </h3>
         {resource.description && (
-          <p className="line-clamp-3 text-[12px] leading-[1.2] text-[var(--foreground-muted)] lg:text-[14px]">
+          <p className="line-clamp-3 text-[12px] leading-[1.2] text-[var(--foreground-muted)] sm:text-[14px]">
             {resource.description}
           </p>
         )}
       </div>
 
-      <div className="mt-auto flex items-center gap-2 pt-1 text-[12px] text-[var(--foreground-muted)] lg:text-[14px]">
+      <div className="mt-auto flex items-center gap-2 pt-1 text-[12px] text-[var(--foreground-muted)] sm:text-[14px]">
         {isAnonymous ? (
           <span>Anonymous</span>
         ) : (
