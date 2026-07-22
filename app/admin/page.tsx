@@ -3,6 +3,8 @@ import { createClient } from "@/lib/supabase/server";
 import { isAdminUser } from "@/lib/admin";
 import { AdminDashboard } from "@/components/AdminDashboard";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminPage() {
   const ok = await isAdminUser();
   if (!ok) {
