@@ -13,7 +13,7 @@ export function Footer() {
             About
           </Link>
         </nav>
-        <p className="px-4 text-sm font-light text-[var(--foreground-muted)]">
+        <p className="px-4 text-[10px] font-light text-[var(--foreground-muted)] lg:text-[12px]">
           Copyright {year} | All copyrights, logos, trademarks and intellectual properties in
           this website are property of their respective owner.
         </p>
