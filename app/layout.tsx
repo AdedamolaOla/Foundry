@@ -16,7 +16,7 @@ export default async function RootLayout({
   const showAdminLink = await isAdminUser();
   return (
     <html lang="en">
-      <body className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
+      <body className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
         <AppShell showAdminLink={showAdminLink}>{children}</AppShell>
       </body>
     </html>

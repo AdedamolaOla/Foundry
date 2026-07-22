@@ -35,7 +35,7 @@ export function AdminLoginForm({ className = "" }: { className?: string }) {
   return (
     <form onSubmit={handleSubmit} className={`space-y-4 ${className}`}>
       <div>
-        <label htmlFor="admin-email" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
+        <label htmlFor="admin-email" className="block text-sm font-medium text-[var(--foreground-muted)]">
           Email
         </label>
         <input
@@ -45,11 +45,11 @@ export function AdminLoginForm({ className = "" }: { className?: string }) {
           onChange={(e) => setEmail(e.target.value)}
           required
           autoComplete="email"
-          className="mt-1 w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-800 dark:text-white"
+          className="mt-1 w-full rounded-lg border border-[var(--border-default)] bg-[var(--input-background)] px-3 py-2 text-sm text-[var(--foreground)] placeholder:text-[var(--foreground-placeholder)] focus:outline-none focus:ring-2 focus:ring-white/20"
         />
       </div>
       <div>
-        <label htmlFor="admin-password" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
+        <label htmlFor="admin-password" className="block text-sm font-medium text-[var(--foreground-muted)]">
           Password
         </label>
         <input
@@ -59,16 +59,14 @@ export function AdminLoginForm({ className = "" }: { className?: string }) {
           onChange={(e) => setPassword(e.target.value)}
           required
           autoComplete="current-password"
-          className="mt-1 w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-800 dark:text-white"
+          className="mt-1 w-full rounded-lg border border-[var(--border-default)] bg-[var(--input-background)] px-3 py-2 text-sm text-[var(--foreground)] placeholder:text-[var(--foreground-placeholder)] focus:outline-none focus:ring-2 focus:ring-white/20"
         />
       </div>
-      {error && (
-        <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
-      )}
+      {error && <p className="text-sm text-red-400">{error}</p>}
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-md bg-neutral-900 py-2 text-sm font-medium text-white hover:bg-neutral-800 disabled:opacity-50 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+        className="w-full rounded-lg bg-[var(--primary)] py-2 text-sm font-medium text-[var(--primary-foreground)] hover:opacity-90 disabled:opacity-50"
       >
         {loading ? "Signing in…" : "Sign in"}
       </button>

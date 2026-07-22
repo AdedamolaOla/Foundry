@@ -121,6 +121,9 @@ export function ContributeModal({ open, onClose }: ContributeModalProps) {
 
   if (!open) return null;
 
+  const fieldClassName =
+    "w-full rounded-lg border border-[var(--border-default)] bg-[var(--input-background)] px-4 py-2.5 text-base leading-6 text-[var(--foreground)] placeholder:text-[var(--foreground-placeholder)] outline-none transition-colors focus:border-[var(--foreground-muted)]";
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
@@ -129,78 +132,93 @@ export function ContributeModal({ open, onClose }: ContributeModalProps) {
       aria-labelledby="contribute-title"
     >
       <div
-        className="absolute inset-0 bg-black/50"
+        className="absolute inset-0 bg-black/60"
         onClick={handleClose}
         aria-hidden="true"
       />
-      <div className="relative w-full max-w-md rounded-xl bg-white p-6 shadow-xl dark:bg-neutral-900">
-        <h2 id="contribute-title" className="text-lg font-semibold text-neutral-900 dark:text-white">
-          Contribute a resource
-        </h2>
-        <form onSubmit={handleSubmit} className="mt-4 space-y-4">
-          <div>
-            <label htmlFor="contribute-title-input" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-              Resource Title *
-            </label>
-            <input
-              id="contribute-title-input"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-              className="mt-1 w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm focus:border-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white"
-              placeholder="e.g. Figma Community"
-            />
+      <div className="relative flex max-h-[90vh] w-full max-w-md flex-col gap-6 overflow-y-auto rounded-[28px] bg-[var(--background-secondary)] p-6 shadow-2xl sm:p-8">
+        <div className="flex flex-col gap-2">
+          <h2 id="contribute-title" className="text-lg font-bold text-[var(--foreground)]">
+            Contribute a resource
+          </h2>
+          <p className="text-sm text-[var(--foreground-muted)]">
+            Enter the details of the resource you want to add
+          </p>
+        </div>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <div className="flex flex-col gap-4">
+            <div>
+              <label htmlFor="contribute-title-input" className="sr-only">
+                Resource Title (required)
+              </label>
+              <input
+                id="contribute-title-input"
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+                className={fieldClassName}
+                placeholder="Resource title"
+              />
+            </div>
+            <div>
+              <label htmlFor="contribute-link" className="sr-only">
+                Resource Link (required)
+              </label>
+              <input
+                id="contribute-link"
+                type="url"
+                value={link}
+                onChange={(e) => setLink(e.target.value)}
+                required
+                className={fieldClassName}
+                placeholder="Link to the resource"
+              />
+            </div>
+            <div>
+              <label htmlFor="contribute-category" className="sr-only">
+                Category (required)
+              </label>
+              <input
+                id="contribute-category"
+                type="text"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                required
+                list="categories-list"
+                className={fieldClassName}
+                placeholder="Category"
+              />
+            </div>
+            <div>
+              <label htmlFor="contribute-description" className="sr-only">
+                Description (optional)
+              </label>
+              <textarea
+                id="contribute-description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows={3}
+                className={`${fieldClassName} min-h-[95px] resize-none`}
+                placeholder="Description"
+              />
+              <p className="mt-1.5 text-sm text-[var(--foreground-placeholder)]">Optional</p>
+            </div>
           </div>
-          <div>
-            <label htmlFor="contribute-link" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-              Resource Link (URL) *
-            </label>
-            <input
-              id="contribute-link"
-              type="url"
-              value={link}
-              onChange={(e) => setLink(e.target.value)}
-              required
-              className="mt-1 w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm focus:border-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white"
-              placeholder="https://..."
-            />
-          </div>
-          <div>
-            <label htmlFor="contribute-category" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-              Category *
-            </label>
-            <input
-              id="contribute-category"
-              type="text"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              required
-              list="categories-list"
-              className="mt-1 w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm focus:border-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white"
-              placeholder="e.g. UI Kits"
-            />
-          </div>
-          <div>
-            <label htmlFor="contribute-description" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-              Description (optional)
-            </label>
-            <textarea
-              id="contribute-description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows={3}
-              className="mt-1 w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm focus:border-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white"
-              placeholder="Brief description..."
-            />
-          </div>
-          <div>
-            <span className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-              Attribution (choose one)
+          <div className="flex flex-col gap-3">
+            <span className="text-sm font-medium text-[var(--foreground)]">
+              Attribution
             </span>
-            <div className="mt-2 space-y-2">
+            <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Attribution">
               {ATTRIBUTION_OPTIONS.map((opt) => (
-                <label key={opt.value} className="flex items-center gap-2">
+                <label
+                  key={opt.value}
+                  className={`cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+                    attributionType === opt.value
+                      ? "border-transparent bg-[var(--primary)] text-[var(--primary-foreground)]"
+                      : "border-[var(--border-default)] bg-[var(--input-background)] text-[var(--foreground-muted)] hover:text-[var(--foreground)]"
+                  }`}
+                >
                   <input
                     type="radio"
                     name="attribution"
@@ -210,9 +228,9 @@ export function ContributeModal({ open, onClose }: ContributeModalProps) {
                       setAttributionType(opt.value);
                       if (opt.value === "anonymous") setAttributionValue("");
                     }}
-                    className="rounded-full border-neutral-300 text-neutral-900 focus:ring-neutral-500"
+                    className="sr-only"
                   />
-                  <span className="text-sm text-neutral-700 dark:text-neutral-300">{opt.label}</span>
+                  {opt.label}
                 </label>
               ))}
             </div>
@@ -222,7 +240,7 @@ export function ContributeModal({ open, onClose }: ContributeModalProps) {
                 value={attributionValue}
                 onChange={(e) => setAttributionValue(e.target.value)}
                 placeholder="Handle or profile URL"
-                className="mt-2 w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm focus:border-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white"
+                className={fieldClassName}
               />
             )}
           </div>
@@ -230,25 +248,25 @@ export function ContributeModal({ open, onClose }: ContributeModalProps) {
             <p
               className={`text-sm ${
                 message.type === "success"
-                  ? "text-green-600 dark:text-green-400"
-                  : "text-red-600 dark:text-red-400"
+                  ? "text-green-400"
+                  : "text-red-400"
               }`}
             >
               {message.text}
             </p>
           )}
-          <div className="flex gap-3 pt-2">
+          <div className="flex items-center justify-end gap-3 pt-2">
             <button
               type="button"
               onClick={handleClose}
-              className="rounded-md border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
+              className="rounded-xl border border-[var(--border-default)] px-4 py-2 text-sm font-medium text-[var(--foreground-muted)] transition-colors hover:bg-white/5 hover:text-[var(--foreground)]"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className="rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 disabled:opacity-50 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+              className="rounded-xl bg-[var(--primary)] px-5 py-2 text-sm font-medium text-[var(--primary-foreground)] transition-opacity hover:opacity-90 disabled:opacity-50"
             >
               {submitting ? "Submitting…" : "Submit"}
             </button>

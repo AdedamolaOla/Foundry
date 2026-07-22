@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Header } from "./Header";
+import { Footer } from "./Footer";
 import { ContributeModal } from "./ContributeModal";
 
 export function AppShell({
@@ -19,6 +20,7 @@ export function AppShell({
         showAdminLink={showAdminLink}
       />
       <main>{children}</main>
+      <Footer />
       <ContributeModal
         open={contributeOpen}
         onClose={() => setContributeOpen(false)}
