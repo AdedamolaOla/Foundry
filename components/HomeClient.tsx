@@ -75,7 +75,7 @@ export function HomeClient({ initialResources }: HomeClientProps) {
           <p className="mb-4 text-sm text-[var(--foreground-muted)]">
             {filtered.length} resource{filtered.length !== 1 ? "s" : ""}
           </p>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-2 gap-4 xl:grid-cols-3">
             {filtered.map((resource) => (
               <ResourceCard key={resource.id} resource={resource} />
             ))}
