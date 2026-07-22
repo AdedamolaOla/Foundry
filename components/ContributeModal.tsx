@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import type { AttributionType } from "@/types/database";
 
-const ATTRIBUTION_OPTIONS: { value: AttributionType; label: string }[] = [
-  { value: "anonymous", label: "Anonymous" },
+const PLATFORM_OPTIONS: { value: Exclude<AttributionType, "anonymous">; label: string }[] = [
   { value: "x", label: "X (Twitter)" },
   { value: "instagram", label: "Instagram" },
   { value: "linkedin", label: "LinkedIn" },
@@ -25,6 +24,8 @@ export function ContributeModal({ open, onClose }: ContributeModalProps) {
   const [attributionValue, setAttributionValue] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const isAnonymous = attributionType === "anonymous";
+  const lastPlatform = useRef<Exclude<AttributionType, "anonymous">>("x");
 
   const resetForm = useCallback(() => {
     setTitle("");
@@ -205,43 +206,68 @@ export function ContributeModal({ open, onClose }: ContributeModalProps) {
               <p className="mt-1.5 text-sm text-[var(--foreground-placeholder)]">Optional</p>
             </div>
           </div>
-          <div className="flex flex-col gap-3">
-            <span className="text-sm font-medium text-[var(--foreground)]">
-              Attribution
-            </span>
-            <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Attribution">
-              {ATTRIBUTION_OPTIONS.map((opt) => (
-                <label
-                  key={opt.value}
-                  className={`cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
-                    attributionType === opt.value
-                      ? "border-transparent bg-[var(--primary)] text-[var(--primary-foreground)]"
-                      : "border-[var(--border-default)] bg-[var(--input-background)] text-[var(--foreground-muted)] hover:text-[var(--foreground)]"
+          <div className="flex flex-col gap-4">
+            <label className="flex cursor-pointer items-center gap-2">
+              <span className="sr-only">Keep anonymous</span>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={isAnonymous}
+                aria-label="Keep anonymous"
+                onClick={() => {
+                  if (isAnonymous) {
+                    // Turning off anonymous: default to the first platform.
+                    setAttributionType(lastPlatform.current);
+                  } else {
+                    lastPlatform.current = attributionType as Exclude<AttributionType, "anonymous">;
+                    setAttributionType("anonymous");
+                    setAttributionValue("");
+                  }
+                }}
+                className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${
+                  isAnonymous ? "bg-[var(--primary)]" : "bg-[var(--border-default)]"
+                }`}
+              >
+                <span
+                  className={`absolute top-0.5 size-5 rounded-full bg-white transition-transform ${
+                    isAnonymous ? "translate-x-[22px]" : "translate-x-0.5"
                   }`}
-                >
-                  <input
-                    type="radio"
-                    name="attribution"
-                    value={opt.value}
-                    checked={attributionType === opt.value}
-                    onChange={() => {
-                      setAttributionType(opt.value);
-                      if (opt.value === "anonymous") setAttributionValue("");
-                    }}
-                    className="sr-only"
-                  />
-                  {opt.label}
-                </label>
-              ))}
-            </div>
-            {attributionType !== "anonymous" && (
-              <input
-                type="text"
-                value={attributionValue}
-                onChange={(e) => setAttributionValue(e.target.value)}
-                placeholder="Handle or profile URL"
-                className={fieldClassName}
-              />
+                />
+              </button>
+              <span className="text-sm font-medium text-[var(--foreground)]">Keep anonymous</span>
+            </label>
+            {!isAnonymous && (
+              <div className="flex flex-col gap-3">
+                <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Platform">
+                  {PLATFORM_OPTIONS.map((opt) => (
+                    <label
+                      key={opt.value}
+                      className={`cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+                        attributionType === opt.value
+                          ? "border-transparent bg-[var(--primary)] text-[var(--primary-foreground)]"
+                          : "border-[var(--border-default)] bg-[var(--input-background)] text-[var(--foreground-muted)] hover:text-[var(--foreground)]"
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="attribution"
+                        value={opt.value}
+                        checked={attributionType === opt.value}
+                        onChange={() => setAttributionType(opt.value)}
+                        className="sr-only"
+                      />
+                      {opt.label}
+                    </label>
+                  ))}
+                </div>
+                <input
+                  type="text"
+                  value={attributionValue}
+                  onChange={(e) => setAttributionValue(e.target.value)}
+                  placeholder="Handle or profile URL"
+                  className={fieldClassName}
+                />
+              </div>
             )}
           </div>
           {message && (

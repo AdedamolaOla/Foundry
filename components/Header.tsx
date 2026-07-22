@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { useSearch } from "./SearchContext";
+import { SearchBar } from "./SearchBar";
 
 interface HeaderProps {
   onContributeClick?: () => void;
@@ -17,9 +21,10 @@ function LogoMark() {
 }
 
 export function Header({ onContributeClick, showAdminLink = false }: HeaderProps) {
+  const { searchQuery, setSearchQuery } = useSearch();
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--border-default)] bg-[var(--background)]/95 backdrop-blur supports-[backdrop-filter]:bg-[var(--background)]/80">
-      <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-6 py-4 sm:px-10 lg:px-20 lg:py-8">
+      <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-3 px-6 py-4 sm:px-10 lg:flex-nowrap lg:gap-4 lg:px-20 lg:py-8">
         <div className="flex items-center gap-2 sm:gap-6">
           <Link href="/" className="flex items-center gap-2">
             <LogoMark />
@@ -41,6 +46,9 @@ export function Header({ onContributeClick, showAdminLink = false }: HeaderProps
               </Link>
             )}
           </nav>
+        </div>
+        <div className="order-3 w-full lg:order-none lg:w-[319px]">
+          <SearchBar value={searchQuery} onChange={setSearchQuery} />
         </div>
         <button
           type="button"

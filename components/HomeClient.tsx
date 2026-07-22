@@ -4,14 +4,14 @@ import { useMemo, useState } from "react";
 import type { Contribution } from "@/types/database";
 import { CategorySidebar } from "./CategorySidebar";
 import { ResourceCard } from "./ResourceCard";
-import { SearchBar } from "./SearchBar";
+import { useSearch } from "./SearchContext";
 
 interface HomeClientProps {
   initialResources: Contribution[];
 }
 
 export function HomeClient({ initialResources }: HomeClientProps) {
-  const [searchQuery, setSearchQuery] = useState("");
+  const { searchQuery, setSearchQuery } = useSearch();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const filtered = useMemo(() => {
@@ -43,21 +43,14 @@ export function HomeClient({ initialResources }: HomeClientProps) {
     <div className="mx-auto max-w-[1440px] px-6 py-10 sm:px-10 lg:px-20 lg:py-20">
       {/* Hero */}
       <div className="flex flex-col gap-4">
-        <h1 className="text-[28px] font-bold leading-tight text-[var(--foreground)] sm:text-[32px]">
+        <h1 className="text-[24px] font-bold leading-[1.2] text-[var(--foreground)]">
           Foundry
         </h1>
-        <p className="max-w-[751px] text-[16px] leading-[1.3] text-[var(--foreground-muted)] sm:text-[18px]">
+        <p className="max-w-[751px] text-[14px] leading-[1.4] text-[var(--foreground-muted)]">
           This collection of resources is here to help you on your design journey, offering
           insights and tips on all things UX and product design. Dive in, learn, and grow your
           skills.
         </p>
-      </div>
-
-      {/* Search */}
-      <div className="mt-8 flex flex-col gap-3 lg:mt-10">
-        <div className="max-w-full sm:max-w-[380px]">
-          <SearchBar value={searchQuery} onChange={setSearchQuery} />
-        </div>
         {searchQuery.trim() && (
           <div className="inline-flex w-fit items-center gap-2 rounded-full bg-[#292929] px-4 py-1.5 text-sm text-[var(--foreground-placeholder)]">
             <span>

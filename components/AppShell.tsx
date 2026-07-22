@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { ContributeModal } from "./ContributeModal";
+import { SearchProvider } from "./SearchContext";
 
 export function AppShell({
   children,
@@ -14,7 +15,7 @@ export function AppShell({
 }) {
   const [contributeOpen, setContributeOpen] = useState(false);
   return (
-    <>
+    <SearchProvider>
       <Header
         onContributeClick={() => setContributeOpen(true)}
         showAdminLink={showAdminLink}
@@ -25,6 +26,6 @@ export function AppShell({
         open={contributeOpen}
         onClose={() => setContributeOpen(false)}
       />
-    </>
+    </SearchProvider>
   );
 }
