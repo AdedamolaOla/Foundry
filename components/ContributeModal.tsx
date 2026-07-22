@@ -259,7 +259,7 @@ export function ContributeModal({ open, onClose }: ContributeModalProps) {
                       setAttributionType(lastPlatform.current);
                     }
                   }}
-                  className="relative h-6 w-11 shrink-0 rounded-full bg-[var(--border-default)] outline-none transition-colors data-[state=checked]:bg-[var(--primary)]"
+                  className="relative h-6 w-11 shrink-0 rounded-full bg-[var(--border-default)] outline-none transition-colors data-[state=checked]:bg-green-500"
                 >
                   <Switch.Thumb className="block size-5 translate-x-0.5 rounded-full bg-white transition-transform data-[state=checked]:translate-x-[22px]" />
                 </Switch.Root>
