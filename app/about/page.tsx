@@ -7,10 +7,10 @@ export default function AboutPage() {
       <section className="flex flex-col items-center justify-center px-6 py-8 md:px-20 md:py-20">
         <div className="flex w-full max-w-[848px] flex-col gap-8 md:gap-[62px]">
           <div className="flex flex-col items-start justify-center gap-4">
-            <h1 className="text-2xl leading-[1.2] font-bold text-[var(--foreground)] md:text-[32px]">
+            <h1 className="text-lg leading-[1.2] font-bold text-[var(--foreground)] md:text-[24px]">
               Why i built Foundry
             </h1>
-            <div className="flex flex-col gap-4 text-sm leading-[1.2] text-[var(--foreground-muted)] md:text-lg">
+            <div className="flex flex-col gap-4 text-xs leading-[1.4] text-[var(--foreground-muted)] md:text-sm">
               <p>
                 One common challenge in the design process is managing tight
                 project timelines, especially when collaborating with
@@ -43,10 +43,10 @@ export default function AboutPage() {
           </div>
 
           <div className="flex flex-col items-start justify-center gap-4">
-            <h2 className="text-2xl leading-[1.2] font-bold text-[var(--foreground)] md:text-[32px]">
+            <h2 className="text-lg leading-[1.2] font-bold text-[var(--foreground)] md:text-[24px]">
               Stay updated &amp; Support the project
             </h2>
-            <div className="flex flex-col gap-4 text-sm leading-[1.2] text-[var(--foreground-muted)] md:text-lg">
+            <div className="flex flex-col gap-4 text-xs leading-[1.4] text-[var(--foreground-muted)] md:text-sm">
               <p>
                 I&rsquo;ll do my best to keep Foundry updated. If you find it
                 useful, you can contribute or support the project by buying
