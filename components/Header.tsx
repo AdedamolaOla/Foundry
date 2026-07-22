@@ -24,8 +24,8 @@ export function Header({ onContributeClick, showAdminLink = false }: HeaderProps
   const { searchQuery, setSearchQuery } = useSearch();
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--border-default)] bg-[var(--background)]/95 backdrop-blur supports-[backdrop-filter]:bg-[var(--background)]/80">
-      <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-3 px-6 py-4 sm:px-10 lg:flex-nowrap lg:gap-4 lg:px-20 lg:py-8">
-        <div className="flex items-center gap-2 sm:gap-6">
+      <div className="mx-auto flex max-w-[1440px] flex-wrap items-center gap-3 px-6 py-4 sm:px-10 lg:flex-nowrap lg:gap-0 lg:px-20 lg:py-8">
+        <div className="order-1 flex items-center gap-2 sm:gap-6">
           <Link href="/" className="flex items-center gap-2">
             <LogoMark />
             <span className="text-base font-bold text-[var(--foreground)]">Foundry</span>
@@ -47,13 +47,13 @@ export function Header({ onContributeClick, showAdminLink = false }: HeaderProps
             )}
           </nav>
         </div>
-        <div className="order-3 w-full lg:order-none lg:w-[319px]">
+        <div className="order-3 w-full lg:order-2 lg:ml-auto lg:mr-[24px] lg:w-[319px]">
           <SearchBar value={searchQuery} onChange={setSearchQuery} />
         </div>
         <button
           type="button"
           onClick={onContributeClick}
-          className="shrink-0 rounded-[10px] bg-[var(--primary)] px-4 py-2 text-sm font-medium text-[var(--primary-foreground)] transition hover:opacity-90"
+          className="order-2 shrink-0 rounded-[10px] bg-[var(--primary)] px-4 py-2 text-sm font-medium text-[var(--primary-foreground)] transition hover:opacity-90 lg:order-3"
         >
           Contribute
         </button>
