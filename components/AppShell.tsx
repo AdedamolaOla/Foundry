@@ -9,9 +9,11 @@ import { SearchProvider } from "./SearchContext";
 export function AppShell({
   children,
   showAdminLink = false,
+  resourceCount = 0,
 }: {
   children: React.ReactNode;
   showAdminLink?: boolean;
+  resourceCount?: number;
 }) {
   const [contributeOpen, setContributeOpen] = useState(false);
   return (
@@ -19,6 +21,7 @@ export function AppShell({
       <Header
         onContributeClick={() => setContributeOpen(true)}
         showAdminLink={showAdminLink}
+        resourceCount={resourceCount}
       />
       <main>{children}</main>
       <Footer />

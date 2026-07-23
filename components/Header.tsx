@@ -7,9 +7,26 @@ import { SearchBar } from "./SearchBar";
 interface HeaderProps {
   onContributeClick?: () => void;
   showAdminLink?: boolean;
+  resourceCount?: number;
 }
 
-export function Header({ onContributeClick, showAdminLink = false }: HeaderProps) {
+function ResourceCountIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      className="size-[18px]"
+      aria-hidden
+    >
+      <rect x="4" y="3" width="13" height="16" rx="2" />
+      <path d="M8 8h5M8 12h5M8 16h3" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function Header({ onContributeClick, showAdminLink = false, resourceCount = 0 }: HeaderProps) {
   const { searchQuery, setSearchQuery } = useSearch();
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--border-default)] bg-[var(--background)]/95 backdrop-blur supports-[backdrop-filter]:bg-[var(--background)]/80">
@@ -45,6 +62,12 @@ export function Header({ onContributeClick, showAdminLink = false }: HeaderProps
         </button>
         <div className="order-3 w-full lg:order-none lg:ml-auto lg:mr-[24px] lg:w-[319px]">
           <SearchBar value={searchQuery} onChange={setSearchQuery} />
+        </div>
+        <div className="hidden shrink-0 items-center gap-2 border-x border-[var(--border-default)] px-6 py-2.5 lg:mr-[24px] lg:flex">
+          <ResourceCountIcon />
+          <span className="whitespace-nowrap text-base text-[var(--foreground-placeholder)]">
+            {resourceCount.toLocaleString()}
+          </span>
         </div>
         <button
           type="button"
