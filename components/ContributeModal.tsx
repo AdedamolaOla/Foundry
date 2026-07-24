@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import * as Switch from "@radix-ui/react-switch";
 import type { AttributionType } from "@/types/database";
+import { createClient } from "@/lib/supabase/client";
 
 function XIcon() {
   return (
@@ -63,8 +64,25 @@ export function ContributeModal({ open, onClose }: ContributeModalProps) {
   const [attributionValue, setAttributionValue] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [categoryOptions, setCategoryOptions] = useState<string[]>([]);
   const isAnonymous = attributionType === "anonymous";
   const lastPlatform = useRef<Exclude<AttributionType, "anonymous">>("x");
+
+  useEffect(() => {
+    if (!open) return;
+    let cancelled = false;
+    (async () => {
+      const supabase = createClient();
+      const { data } = await supabase.from("contributions").select("category");
+      if (cancelled || !data) return;
+      const unique = Array.from(new Set(data.map((row) => row.category).filter(Boolean)));
+      unique.sort((a, b) => a.localeCompare(b));
+      setCategoryOptions(unique);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [open]);
 
   const resetForm = useCallback(() => {
     setTitle("");
@@ -226,9 +244,15 @@ export function ContributeModal({ open, onClose }: ContributeModalProps) {
                 onChange={(e) => setCategory(e.target.value)}
                 required
                 list="categories-list"
+                autoComplete="off"
                 className={fieldClassName}
                 placeholder="Category"
               />
+              <datalist id="categories-list">
+                {categoryOptions.map((cat) => (
+                  <option key={cat} value={cat} />
+                ))}
+              </datalist>
             </div>
             <div>
               <label htmlFor="contribute-description" className="sr-only">

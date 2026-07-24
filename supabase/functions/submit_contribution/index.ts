@@ -26,6 +26,33 @@ function isValidUrl(s: string): boolean {
   }
 }
 
+const PREVIEW_TIMEOUT_MS = 5000;
+
+// Best-effort fetch of the link's og:image / twitter:image for the resource card thumbnail.
+async function fetchPreviewImage(url: string): Promise<string | null> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), PREVIEW_TIMEOUT_MS);
+  try {
+    const res = await fetch(url, {
+      signal: controller.signal,
+      headers: { "User-Agent": "FoundryPreview/1.0" },
+      redirect: "follow",
+    });
+    const html = await res.text();
+    const ogMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i)
+      || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
+    if (ogMatch) return ogMatch[1].trim();
+    const twMatch = html.match(/<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["']/i)
+      || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+name=["']twitter:image["']/i);
+    if (twMatch) return twMatch[1].trim();
+    return null;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: cors() });
@@ -73,6 +100,8 @@ Deno.serve(async (req) => {
     const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, serviceKey);
 
+    const previewImageUrl = await fetchPreviewImage(link.trim());
+
     const row = {
       title: title.trim(),
       link: link.trim(),
@@ -83,7 +112,7 @@ Deno.serve(async (req) => {
         attribution_type === "anonymous"
           ? null
           : (attribution_value == null ? "" : String(attribution_value).trim()).slice(0, MAX_ATTRIBUTION_VALUE) || null,
-      preview_image_url: null,
+      preview_image_url: previewImageUrl,
       status: "pending",
     };
 

@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import type { Contribution } from "@/types/database";
 
 const ATTRIBUTION_ICONS: Record<string, string> = {
@@ -28,6 +31,7 @@ function pickGradient(seed: string) {
 }
 
 export function ResourceCard({ resource }: { resource: Contribution }) {
+  const [imgFailed, setImgFailed] = useState(false);
   const isAnonymous = resource.attribution_type === "anonymous";
   const attributionLabel = isAnonymous
     ? "Anonymous"
@@ -41,10 +45,11 @@ export function ResourceCard({ resource }: { resource: Contribution }) {
       className="group relative flex h-[280px] flex-col gap-4 overflow-hidden rounded-[24px] bg-[var(--card-background)] p-4 transition-colors sm:h-auto sm:w-[295px] sm:flex-none sm:rounded-[32px] sm:p-6 sm:hover:bg-[var(--border-default)]"
     >
       <div className="relative w-full min-h-0 flex-1 overflow-hidden rounded-[8px] sm:h-[146px] sm:flex-none sm:shrink-0 sm:rounded-[16px]">
-        {resource.preview_image_url ? (
+        {resource.preview_image_url && !imgFailed ? (
           <img
             src={resource.preview_image_url}
             alt=""
+            onError={() => setImgFailed(true)}
             className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
           />
         ) : (
