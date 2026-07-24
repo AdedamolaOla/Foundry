@@ -38,7 +38,7 @@ export function Header({ onContributeClick, showAdminLink = false, resourceCount
               className="size-8 shrink-0 rounded-full"
               style={{
                 background:
-                  "conic-gradient(from 0deg, #f97316 0%, #eab308 14%, #22c55e 38%, #06b6d4 62%, #3b82f6 82%, #f97316 100%)",
+                  "radial-gradient(circle at 28% 22%, rgba(238,168,235,0.9) 0%, rgba(238,168,235,0) 48%), radial-gradient(circle at 72% 78%, rgba(90,101,235,0.9) 0%, rgba(90,101,235,0) 52%), #f4f4f6",
               }}
             />
             <span className="text-base font-bold text-[var(--foreground)]">Foundry</span>
