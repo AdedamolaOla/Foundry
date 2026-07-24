@@ -49,9 +49,23 @@ export default function AboutPage() {
             </h2>
             <div className="flex flex-col gap-4 text-xs leading-[1.4] text-[var(--foreground-muted)] md:text-sm">
               <p>
-                I&rsquo;ll do my best to keep Foundry updated. If you find it
-                useful, you can contribute or support the project by buying
-                me a coffee. ☕
+                Foundry is now a community-driven project that I&rsquo;ll
+                continue improving as new tools, resources, and ideas emerge.
+                My goal is to keep it free and accessible to every product
+                designer.
+              </p>
+              <p>
+                If Foundry has helped you, you can support the project by
+                contributing resources, sharing feedback, or{" "}
+                <a
+                  href="https://buymeacoffee.com/olaadedamo9?new=1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--foreground)] underline"
+                >
+                  buying me a coffee
+                </a>{" "}
+                to help keep it growing. ☕
               </p>
               <p>
                 💡 Got feedback or suggestions? Send me an email on{" "}
