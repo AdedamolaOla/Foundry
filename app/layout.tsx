@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { AppShell } from "@/components/AppShell";
 import { isAdminUser } from "@/lib/admin";
 import { createClient } from "@/lib/supabase/server";
@@ -35,6 +36,7 @@ export default async function RootLayout({
         <AppShell showAdminLink={showAdminLink} resourceCount={count ?? 0}>
           {children}
         </AppShell>
+        <Analytics />
       </body>
     </html>
   );
