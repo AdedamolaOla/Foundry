@@ -15,7 +15,7 @@ export function CategorySidebar({
 }: CategorySidebarProps) {
   return (
     <aside className="w-full shrink-0 lg:h-full lg:w-[160px]">
-      <div className="lg:sticky lg:top-24">
+      <div className="lg:sticky lg:top-[134px]">
         <h2 className="hidden px-4 py-2 text-[18px] font-bold text-[var(--foreground)] lg:block">
           Categories
         </h2>

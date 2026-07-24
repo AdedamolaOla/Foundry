@@ -34,7 +34,7 @@ export function Header({ onContributeClick, showAdminLink = false, resourceCount
         <div className="flex items-center gap-2 sm:gap-6">
           <Link href="/" className="flex items-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/foundry-logo.svg" alt="Foundry" className="h-9 w-auto" />
+            <img src="/foundry-logo.svg" alt="Foundry" className="h-6 w-auto" />
           </Link>
           <nav className="flex items-center gap-1">
             <Link
