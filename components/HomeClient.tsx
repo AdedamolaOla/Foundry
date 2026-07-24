@@ -70,7 +70,7 @@ export function HomeClient({ initialResources }: HomeClientProps) {
       </div>
 
       {/* Content */}
-      <div className="mt-8 flex flex-col gap-6 lg:mt-[62px] lg:flex-row lg:items-start lg:gap-6">
+      <div className="mt-8 flex flex-col gap-6 lg:mt-[62px] lg:flex-row lg:gap-6">
         <div className="order-2 min-w-0 flex-1 lg:order-1">
           <p className="mb-4 text-sm text-[var(--foreground-muted)]">
             {filtered.length} resource{filtered.length !== 1 ? "s" : ""}

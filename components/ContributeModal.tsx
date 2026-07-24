@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef, useMemo } from "react";
 import * as Switch from "@radix-ui/react-switch";
 import type { AttributionType } from "@/types/database";
 import { createClient } from "@/lib/supabase/client";
@@ -27,6 +27,21 @@ function LinkedInIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className="size-4">
       <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z" />
+    </svg>
+  );
+}
+
+function ChevronDownIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      className={className}
+      aria-hidden
+    >
+      <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -65,6 +80,8 @@ export function ContributeModal({ open, onClose }: ContributeModalProps) {
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const [categoryOptions, setCategoryOptions] = useState<string[]>([]);
+  const [categoryOpen, setCategoryOpen] = useState(false);
+  const categoryFieldRef = useRef<HTMLDivElement>(null);
   const isAnonymous = attributionType === "anonymous";
   const lastPlatform = useRef<Exclude<AttributionType, "anonymous">>("x");
 
@@ -83,6 +100,23 @@ export function ContributeModal({ open, onClose }: ContributeModalProps) {
       cancelled = true;
     };
   }, [open]);
+
+  useEffect(() => {
+    if (!categoryOpen) return;
+    function handleClickOutside(e: MouseEvent) {
+      if (categoryFieldRef.current && !categoryFieldRef.current.contains(e.target as Node)) {
+        setCategoryOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [categoryOpen]);
+
+  const filteredCategoryOptions = useMemo(() => {
+    const q = category.trim().toLowerCase();
+    if (!q) return categoryOptions;
+    return categoryOptions.filter((c) => c.toLowerCase().includes(q));
+  }, [categoryOptions, category]);
 
   const resetForm = useCallback(() => {
     setTitle("");
@@ -233,7 +267,7 @@ export function ContributeModal({ open, onClose }: ContributeModalProps) {
                 placeholder="Link to the resource"
               />
             </div>
-            <div>
+            <div ref={categoryFieldRef} className="relative">
               <label htmlFor="contribute-category" className="sr-only">
                 Category (required)
               </label>
@@ -241,18 +275,52 @@ export function ContributeModal({ open, onClose }: ContributeModalProps) {
                 id="contribute-category"
                 type="text"
                 value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                  setCategoryOpen(true);
+                }}
+                onFocus={() => setCategoryOpen(true)}
                 required
-                list="categories-list"
                 autoComplete="off"
-                className={fieldClassName}
+                role="combobox"
+                aria-expanded={categoryOpen}
+                aria-controls="category-options"
+                className={`${fieldClassName} pr-11`}
                 placeholder="Category"
               />
-              <datalist id="categories-list">
-                {categoryOptions.map((cat) => (
-                  <option key={cat} value={cat} />
-                ))}
-              </datalist>
+              <button
+                type="button"
+                onClick={() => setCategoryOpen((v) => !v)}
+                aria-label="Toggle category suggestions"
+                tabIndex={-1}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--foreground-placeholder)]"
+              >
+                <ChevronDownIcon
+                  className={`size-4 transition-transform ${categoryOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+              {categoryOpen && filteredCategoryOptions.length > 0 && (
+                <ul
+                  id="category-options"
+                  role="listbox"
+                  className="absolute z-10 mt-2 max-h-60 w-full overflow-y-auto rounded-lg border border-[var(--border-default)] bg-[var(--input-background)] py-1 shadow-2xl"
+                >
+                  {filteredCategoryOptions.map((cat) => (
+                    <li key={cat} role="option" aria-selected={category === cat}>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setCategory(cat);
+                          setCategoryOpen(false);
+                        }}
+                        className="block w-full px-4 py-2.5 text-left text-base text-[var(--foreground)] transition-colors hover:bg-white/5"
+                      >
+                        {cat}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
             <div>
               <label htmlFor="contribute-description" className="sr-only">

@@ -14,13 +14,13 @@ export function CategorySidebar({
   totalCount,
 }: CategorySidebarProps) {
   return (
-    <aside className="w-full shrink-0 lg:w-[160px]">
-      <div className="lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto">
+    <aside className="w-full shrink-0 lg:h-full lg:w-[160px]">
+      <div className="lg:sticky lg:top-24">
         <h2 className="hidden px-4 py-2 text-[18px] font-bold text-[var(--foreground)] lg:block">
           Categories
         </h2>
-        {/* Mobile / tablet: horizontal scrolling chip row, bled edge-to-edge past the page padding. Desktop: vertical list (matches Figma). */}
-        <nav className="-mx-6 flex gap-2 overflow-x-auto px-6 pb-2 sm:mx-0 sm:px-0 lg:flex-col lg:gap-1 lg:overflow-visible lg:pb-0">
+        {/* Mobile / tablet: horizontal scrolling chip row, bled edge-to-edge past the page padding. Desktop: vertical list (matches Figma), shown in full with no internal scroll. */}
+        <nav className="scrollbar-hide -mx-6 flex gap-2 overflow-x-auto px-6 pb-2 sm:mx-0 sm:px-0 lg:flex-col lg:gap-1 lg:overflow-visible lg:pb-0">
           <button
             type="button"
             onClick={() => onSelectCategory(null)}
