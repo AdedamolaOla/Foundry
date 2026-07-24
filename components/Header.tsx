@@ -32,9 +32,16 @@ export function Header({ onContributeClick, showAdminLink = false, resourceCount
     <header className="sticky top-0 z-50 border-b border-[var(--border-default)] bg-[var(--background)]/95 backdrop-blur supports-[backdrop-filter]:bg-[var(--background)]/80">
       <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-3 px-6 py-4 sm:px-10 lg:flex-nowrap lg:justify-normal lg:gap-0 lg:px-20 lg:py-8">
         <div className="flex items-center gap-2 sm:gap-6">
-          <Link href="/" className="flex items-center">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/foundry-logo.svg" alt="Foundry" className="h-6 w-auto" />
+          <Link href="/" className="flex items-center gap-2">
+            <span
+              aria-hidden
+              className="size-8 shrink-0 rounded-full"
+              style={{
+                background:
+                  "conic-gradient(from 0deg, #f97316 0%, #eab308 14%, #22c55e 38%, #06b6d4 62%, #3b82f6 82%, #f97316 100%)",
+              }}
+            />
+            <span className="text-base font-bold text-[var(--foreground)]">Foundry</span>
           </Link>
           <nav className="flex items-center gap-1">
             <Link
